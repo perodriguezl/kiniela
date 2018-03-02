@@ -338,50 +338,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-9 col-md-offset-1">
-                        <div class="row ">
-                            <div class="col-lg-2 match-container">
-                                15 JUN 2018 - 17:00 Local time<br/>
-                                <b>GROUP A</b><br/>
-                                Ekaterinburg Arena<br/>
-                                Ekaterinburg
-                            </div>
-                            <div class="col-lg-4 text-center match-container">
-                            </div>
-                            <div class="col-lg-2 text-center match-container">
-                                KICKOFF
-                            </div>
-                            <div class="col-lg-4 text-center match-container">
-                                AWAY TEAM
-                            </div>
-                        </div>
-                        <div class="row show-grid row-eq-height">
-                            <div class="col-md-12">
-                                Level 1: .col-md-12
-                                <div class="row show-grid row-eq-height">
-                                    <div class="col-md-2">
-                                        15 JUN 2018 - 17:00 Local time<br/>
-                                        <b>GROUP A</b><br/>
-                                        Ekaterinburg Arena<br/>
-                                        Ekaterinburg
-                                    </div>
-                                    <div class="col-md-4">
-                                        <span class=" align-middle">
-                                            <img class=" align-middle" src="http://img.fifa.com/images/flags/4/egy.png"/>
-                                        </span>
-                                        <span>
-                                            Egypt
-                                        </span>
-                                    </div>
-                                    <div class="col-md-2">
-                                        Level 2: .col-md-6
-                                    </div>
-                                    <div class="col-md-4">
-                                        Level 2: .col-md-6
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-12 col-md-offset-3" id="games-list">
                     </div>
                 </div>
                 <!-- /.row -->
@@ -404,6 +361,87 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+
+    <script type="text/javascript">
+        var games = [
+            {
+                game_id: 15,
+                game_details: "14 JUN 2018 - 18:00 Local time - Moscow",
+                game_date: "2018-06-14",
+                home_id: 1,
+                home_name: "Rusia",
+                home_flag: "http://img.fifa.com/images/flags/4/rus.png",
+                home_score: 3,
+                visitor_id: 2,
+                visitor_name: "ARABIA SAUDI",
+                visitor_flag: "http://img.fifa.com/images/flags/4/ksa.png",
+                visitor_score: 1,
+                editable: false,
+            },
+            {
+                game_id: 16,
+                game_details: "15 JUN 2018 - 17:00 Local time - Ekaterinburg",
+                home_id: 5,
+                home_name: "EGIPTO",
+                home_flag: "http://img.fifa.com/images/flags/4/egy.png",
+                home_score: 1,
+                visitor_id: 6,
+                visitor_name: "URUGUAY",
+                visitor_flag: "http://img.fifa.com/images/flags/4/uru.png",
+                visitor_score: 2,
+                editable: 2,
+            }
+        ];
+        var game_row = `
+                        <div class="row show-grid row-eq-height">
+                            <div class="col-md-6" id="date-2018-06-15">
+                                    {{game_details}}
+                                    <div class="row show-grid row-eq-height">
+                                        <div class="col-md-4">
+                                            <span class="pull-right">
+                                                {{home_name}}
+                                                <img height="30px" src="{{home_flag}}"/>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4" align="center">
+                                            <span class="pull-left">
+                                                <input type="text" id="rus" class="form-control" size="3" maxlength="3" value="{{home_score}}">
+                                            </span>
+                                            <span>
+                                                VS
+                                            </span>
+                                            <span class="pull-right">
+                                                <input type="text" id="rus" class="form-control" size="3" maxlength="3" value="{{visitor_score}}">
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="pull-left">
+                                                <img height="30px" src="{{visitor_flag}}"/>
+                                                {{visitor_name}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+
+        $( document ).ready(function() {
+            $.each(games, function(index, value){
+                game_html = game_row.replace("{{game_details}}", value.game_details);
+                game_html = game_html.replace("{{home_name}}", value.home_name);
+                game_html = game_html.replace("{{home_flag}}", value.home_flag);
+                game_html = game_html.replace("{{visitor_name}}", value.visitor_name);
+                game_html = game_html.replace("{{visitor_flag}}", value.visitor_flag);
+                if (value.editable) {
+                    game_html = game_html.replace("{{home_score}}", value.home_score);
+                    game_html = game_html.replace("{{visitor_score}}", value.visitor_score);
+                } else {
+                    game_html = game_html.replace('<input type="text" id="rus" class="form-control" size="3" maxlength="3" value="{{home_score}}">', "<h4>" + value.home_score + "</h4>");
+                    game_html = game_html.replace('<input type="text" id="rus" class="form-control" size="3" maxlength="3" value="{{visitor_score}}">', "<h4>" + value.visitor_score + "</h4>");
+                }
+                $("#games-list").append(game_html);
+            });
+        });
+    </script>
 
 </body>
 
