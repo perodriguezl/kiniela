@@ -9,6 +9,24 @@ body {
 #wrapper {
   width: 100%;
 }
+.vs-typography {
+  font-size: 8px;
+}
+@media (min-width:576px) {
+  .vs-typography {
+    font-size: 14px;
+  }
+}
+@media (min-width:768px) {
+  .vs-typography {
+    font-size: 16px;
+  }
+}
+@media (min-width:992px) {
+  .vs-typography {
+    font-size: 22px;
+  }
+}
 #page-wrapper {
   padding: 0 15px;
   min-height: 568px;

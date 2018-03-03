@@ -365,81 +365,206 @@
     <script type="text/javascript">
         var games = [
             {
-                game_id: 15,
-                game_details: "14 JUN 2018 - 18:00 Local time - Moscow",
+                game_id: 14,
+                game_details: "GRUPO A - 14 JUN 2018 - 18:00 Local time - Moscow",
                 game_date: "2018-06-14",
-                home_id: 1,
-                home_name: "Rusia",
-                home_flag: "http://img.fifa.com/images/flags/4/rus.png",
-                home_score: 3,
-                visitor_id: 2,
-                visitor_name: "ARABIA SAUDI",
-                visitor_flag: "http://img.fifa.com/images/flags/4/ksa.png",
-                visitor_score: 1,
+                home: {
+                    id: 1,
+                    name: "RUSIA",
+                    flag: "http://img.fifa.com/images/flags/4/rus.png",
+                    score: 3,
+                    result: 1
+                },
+                visitor: {
+                    id: 2,
+                    name: "ARABIA SAUDI",
+                    flag: "http://img.fifa.com/images/flags/4/ksa.png",
+                    score: 3,
+                    result: 0
+                },
+                prediction_points: 0,
+                finished: true,
                 editable: false,
+                drawable: true,
+            },
+            {
+                game_id: 15,
+                game_details: "GRUPO A - 14 JUN 2018 - 18:00 Local time - Moscow",
+                game_date: "2018-06-14",
+                home: {
+                    id: 1,
+                    name: "RUSIA",
+                    flag: "http://img.fifa.com/images/flags/4/rus.png",
+                    score: 3,
+                    result: 1
+                },
+                visitor: {
+                    id: 2,
+                    name: "ARABIA SAUDI",
+                    flag: "http://img.fifa.com/images/flags/4/ksa.png",
+                    score: 1,
+                    result: 0
+                },
+                prediction_points: 1,
+                finished: true,
+                editable: false,
+                drawable: true,
             },
             {
                 game_id: 16,
-                game_details: "15 JUN 2018 - 17:00 Local time - Ekaterinburg",
-                home_id: 5,
-                home_name: "EGIPTO",
-                home_flag: "http://img.fifa.com/images/flags/4/egy.png",
-                home_score: 1,
-                visitor_id: 6,
-                visitor_name: "URUGUAY",
-                visitor_flag: "http://img.fifa.com/images/flags/4/uru.png",
-                visitor_score: 2,
-                editable: 2,
+                game_details: "GRUPO A - 15 JUN 2018 - 17:00 Local time - Ekaterinburg",
+                game_date: "2018-06-15",
+                home: {
+                    id: 5,
+                    name: "EGIPTO",
+                    flag: "http://img.fifa.com/images/flags/4/egy.png",
+                    score: 1,
+                    result: 0
+                },
+                visitor: {
+                    id: 6,
+                    name: "URUGUAY",
+                    flag: "http://img.fifa.com/images/flags/4/uru.png",
+                    score: 1,
+                    result: 0
+                },
+                prediction_points: 0,
+                finished: false,
+                editable: true,
+                drawable: true,
+            },
+            {
+                game_id: 17,
+                game_details: "GRUPO A - 15 JUN 2018 - 17:00 Local time - Ekaterinburg",
+                game_date: "2018-06-15",
+                home: {
+                    id: 8,
+                    name: "EGIPTO",
+                    flag: "http://img.fifa.com/images/flags/4/egy.png",
+                    score: 1,
+                    result: 0
+                },
+                visitor: {
+                    id: 10,
+                    name: "URUGUAY",
+                    flag: "http://img.fifa.com/images/flags/4/uru.png",
+                    score: 1,
+                    result: 0
+                },
+                prediction_points: 0,
+                finished: false,
+                editable: true,
+                drawable: false,
             }
         ];
         var game_row = `
-                        <div class="row show-grid row-eq-height">
+                        <div class="row row-eq-height">
                             <div class="col-md-6" id="date-2018-06-15">
-                                    {{game_details}}
-                                    <div class="row show-grid row-eq-height">
-                                        <div class="col-md-4">
-                                            <span class="pull-right">
-                                                {{home_name}}
-                                                <img height="30px" src="{{home_flag}}"/>
-                                            </span>
-                                        </div>
-                                        <div class="col-md-4" align="center">
-                                            <span class="pull-left">
-                                                <input type="text" id="rus" class="form-control" size="3" maxlength="3" value="{{home_score}}">
-                                            </span>
-                                            <span>
-                                                VS
-                                            </span>
-                                            <span class="pull-right">
-                                                <input type="text" id="rus" class="form-control" size="3" maxlength="3" value="{{visitor_score}}">
-                                            </span>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <span class="pull-left">
-                                                <img height="30px" src="{{visitor_flag}}"/>
-                                                {{visitor_name}}
-                                            </span>
+                                <div class="panel panel-{{prediction_result}}">
+                                    <div class="panel-heading">
+                                        {{game_details}}
+                                        <span id="game-points-{{game_id}}" class="pull-right">Puntos: {{prediction_points}}</span>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row row-eq-height">
+                                            <div class="col-md-4">
+                                                <span class="pull-right">
+                                                    {{home_name}}
+                                                    <img height="30px" src="{{home_flag}}"/>
+                                                </span>
+                                            </div>
+                                            <div class="col-md-4" align="center">
+                                                <span class="pull-left">
+                                                    {{home_result_editable}}
+                                                </span>
+                                                <span class="vs-typography">
+                                                    -
+                                                </span>
+                                                <span class="pull-right">
+                                                    {{visitor_result_editable}}
+                                                </span>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <span class="pull-left">
+                                                    <img height="30px" src="{{visitor_flag}}"/>
+                                                    {{visitor_name}}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
+                                <div id="game-result-{{game_id}}" class="panel-footer">
+                                    RESULTADO: {{home_name}} {{home_result}} - {{visitor_result}} {{visitor_name}}
                                 </div>
-                            </div>`;
+                                </div>
+                            </div>
+                        </div>`;
+        var editable_result = '<input type="text" id="game-{{game_id}}-{{team_id}}" class="form-control game-predictions game-{{game_id}}" data-game="{{game_id}}" data-team="{{team_id}}" data-team-type="{{team_type}}" size="2" maxlength="2" value="{{team_score}}">';
+        var not_editable_result = '<h4>{{team_score}}</h4>';
+
+        function getGames()
+        {
+            return games; /*this could come from apis*/
+        }
 
         $( document ).ready(function() {
+            games = getGames();
             $.each(games, function(index, value){
-                game_html = game_row.replace("{{game_details}}", value.game_details);
-                game_html = game_html.replace("{{home_name}}", value.home_name);
-                game_html = game_html.replace("{{home_flag}}", value.home_flag);
-                game_html = game_html.replace("{{visitor_name}}", value.visitor_name);
-                game_html = game_html.replace("{{visitor_flag}}", value.visitor_flag);
+                game_html = game_row.replace(/{{game_details}}/, value.game_details);
+                game_html = game_html.replace(/{{game_id}}/g, value.game_id);
+                game_html = game_html.replace(/{{home_id}}/g, value.home.id);
+                game_html = game_html.replace(/{{home_name}}/g, value.home.name);
+                game_html = game_html.replace(/{{home_flag}}/g, value.home.flag);
+                game_html = game_html.replace(/{{home_result}}/g, value.home.result);
+                game_html = game_html.replace(/{{visitor_id}}/g, value.visitor.id);
+                game_html = game_html.replace(/{{visitor_name}}/g, value.visitor.name);
+                game_html = game_html.replace(/{{visitor_flag}}/g, value.visitor.flag);
+                game_html = game_html.replace(/{{visitor_result}}/g, value.visitor.result);
+                game_html = game_html.replace("{{prediction_points}}", value.prediction_points);
                 if (value.editable) {
-                    game_html = game_html.replace("{{home_score}}", value.home_score);
-                    game_html = game_html.replace("{{visitor_score}}", value.visitor_score);
+                    var home_result_editable = editable_result.replace(/{{game_id}}/g, value.game_id);
+                    var home_result_editable = home_result_editable.replace(/{{team_id}}/g, value.home.id);
+                    var home_result_editable = home_result_editable.replace("{{team_score}}", value.home.score);
+                    var home_result_editable = home_result_editable.replace("{{team_type}}", "home");
+                    game_html = game_html.replace("{{home_result_editable}}", home_result_editable);
+                    var visitor_result_editable = editable_result.replace(/{{game_id}}/g, value.game_id);
+                    var visitor_result_editable = visitor_result_editable.replace(/{{team_id}}/g, value.visitor.id);
+                    var visitor_result_editable = visitor_result_editable.replace("{{team_score}}", value.visitor.score);
+                    var visitor_result_editable = visitor_result_editable.replace("{{team_type}}", "visitor");
+                    game_html = game_html.replace("{{visitor_result_editable}}", visitor_result_editable);
                 } else {
-                    game_html = game_html.replace('<input type="text" id="rus" class="form-control" size="3" maxlength="3" value="{{home_score}}">', "<h4>" + value.home_score + "</h4>");
-                    game_html = game_html.replace('<input type="text" id="rus" class="form-control" size="3" maxlength="3" value="{{visitor_score}}">', "<h4>" + value.visitor_score + "</h4>");
+                    var home_result_editable = not_editable_result.replace("{{team_score}}", value.home.score);
+                    game_html = game_html.replace("{{home_result_editable}}", home_result_editable);
+                    var visitor_result_editable = not_editable_result.replace("{{team_score}}", value.visitor.score);
+                    game_html = game_html.replace("{{visitor_result_editable}}", visitor_result_editable);
+                }
+                if (value.prediction_points > 0 && value.finished) {
+                    game_html = game_html.replace("{{prediction_result}}", "success");
+                } else if (value.prediction_points == 0 && value.finished) {
+                    game_html = game_html.replace("{{prediction_result}}", "danger");
+                } else if (!value.finished) {
+                    game_html = game_html.replace("{{prediction_result}}", "default");
                 }
                 $("#games-list").append(game_html);
+                if (!value.finished) {
+                    $('#game-points-' + value.game_id).hide();
+                    $('#game-result-' + value.game_id).hide();
+                }
             });
+        });
+        $(document).on('change', '.game-predictions', function() {
+            var game_id = $(this).attr("data-game");
+            var teams = [];
+            $.each($(".game-" + game_id), function () {
+                team_id = $(this).attr('data-team');
+                team_type = $(this).attr('data-team-type');
+                team_score = $(this).val();
+                teams.push({
+                    'id': team_id,
+                    'score': team_score,
+                    'type': team_type,
+                });
+            });
+            /* UPDATE game pronostic with game_id and teams */
         });
     </script>
 
